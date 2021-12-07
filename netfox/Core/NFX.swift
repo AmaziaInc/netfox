@@ -52,6 +52,7 @@ open class NFX: NSObject {
     fileprivate var ignoredURLsRegex = [NSRegularExpression]()
     fileprivate var filters = [Bool]()
     fileprivate var lastVisitDate: Date = Date()
+    var delegate: NFXCustomDelegate? = nil
     
     internal var cacheStoragePolicy = URLCache.StoragePolicy.notAllowed
     
@@ -73,7 +74,8 @@ open class NFX: NSObject {
         case custom
     }
 
-    @objc open func start() {
+    @objc open func start(delegate: NFXCustomDelegate?) {
+        self.delegate = delegate
         guard !started else {
             showMessage(Constants.alreadyStartedMessage.rawValue)
             return
@@ -349,3 +351,8 @@ extension NFX {
 }
 
 #endif
+
+@objc public protocol NFXCustomDelegate {
+    func didLogRequest(_ request: URLRequest)
+    func didSaveResponse(_ response: URLResponse, data: Data)
+}
