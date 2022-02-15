@@ -67,7 +67,6 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     
     func logRequest(_ request: URLRequest) {
         NFX.sharedInstance().delegate?.didLogRequest(request)
-        formattedRequestLogEntry().appendToFile(filePath: NFXPath.SessionLog)
     }
     
     func saveErrorResponse() {
@@ -92,7 +91,6 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
         timeInterval = Float(responseDate!.timeIntervalSince(requestDate!))
         
         saveResponseBodyData(data)
-        formattedResponseLogEntry().appendToFile(filePath: NFXPath.SessionLog)
     }
     
     
