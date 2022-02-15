@@ -322,26 +322,6 @@ struct NFXPath {
     static let SessionLog = NFXPath.Documents.appendingPathComponent("session.log");
 }
 
-
-extension String {
-    func appendToFile(filePath: String) {
-        let contentToAppend = self
-        
-        if let fileHandle = FileHandle(forWritingAtPath: filePath) {
-            /* Append to file */
-            fileHandle.seekToEndOfFile()
-            fileHandle.write(contentToAppend.data(using: String.Encoding.utf8)!)
-        } else {
-            /* Create new file */
-            do {
-                try contentToAppend.write(toFile: filePath, atomically: true, encoding: String.Encoding.utf8)
-            } catch {
-                print("Error creating \(filePath)")
-            }
-        }
-    }
-}
-
 @objc extension URLSessionConfiguration {
     private static var firstOccurrence = true
     
